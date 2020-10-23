@@ -5,7 +5,7 @@ import argparse
 
 # USE: Run this file in terminal with the arguments found in the parser below
 #  INPUT -> Image filepath, Output filepath, Ascii character palate, Output width in characters, Exposure, Contrast, Color (Black/White)
-# OUTPUT -> txt file
+# OUTPUT -> .txt file
 
 def char_brightness(pix_val, weight):
     brightness_arr = []
