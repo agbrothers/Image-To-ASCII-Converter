@@ -3,6 +3,10 @@ from PIL import Image, ImageDraw, ImageFont
 import argparse
 
 
+# USE: Run this file in terminal with the arguments found in the parser in main
+#  INPUT -> Image filepath, Output filepath, Ascii character palate, Output width in characters, Exposure, Contrast, Color (Black/White)
+# OUTPUT -> txt file
+
 def char_brightness(pix_val, weight):
     brightness_arr = []
     brightness_arr.append(sum(sum(pix_val[:7]))/126)  # top_M
@@ -59,15 +63,15 @@ def load_image(path, w=100):
     return image
 
 
-def convert_image(path, palate, w=100, weight=4, exposure=0.5, color='b'):
+def convert_image(input_path, output_path, palate, w=100, weight=4, exposure=0.5, color='b'):
     c = 1 if color == 'b' else 0
     e = exposure if color == 'b' else 1/exposure
-    img = load_image(path, w)
+    img = load_image(input_path, w)
     pix_val = (np.asarray(img)/255)**e
     chars = char_palate(palate, weight=weight, color=c)
 
     current_line = ''
-    ascii_text = open('/Users/greysonbrothers/Desktop/ /- python/art/ascii_image_new.txt', 'w')
+    ascii_text = open(output_path, 'w')
     for x in range(2,img.size[1]-2):
         for y in range(2,img.size[0]-2):
             local_pixels = get_neighbors(pix_val,x,y, weight)
@@ -85,18 +89,20 @@ if __name__ == "__main__":
     char = [' ','.',"'",'-','\'',',','_',':','=','^','"','+','•','~',';','|','(',')','<','>','%','?','c','s','{','}','!','I','[',']','i','t','v','x','z','1','r','a','e','l','o','n','u','T','f','w','3','7','J','y','5','$','4','g','k','p','q','F','P','b','d','h','G','O','V','X','E','Z','8','A','U','D','H','K','W','&','@','R','B','Q','#','0','M','N']
 
     parser = argparse.ArgumentParser(description='Cleaning audio data')
-    parser.add_argument('--file', '-f', type=str, default='images/obama.jpg',
+    parser.add_argument('--input_path', '-i', type=str, default='images/obama.jpg',
+                        help='Filepath for the desired image')
+    parser.add_argument('--output_path', '-o', type=str, default='images/obama.jpg',
                         help='Filepath for the desired image')
     parser.add_argument('--palate', '-p', type=list, default=char,
                         help='Characters to build the image from, should be a python list')
-    parser.add_argument('--dimension', '-d',type=int, default=100,
+    parser.add_argument('--width', '-w',type=int, default=100,
                         help='Number of characters to scale the width/resolution to')
     parser.add_argument('--exposure', '-e', type=float, default=0.50,
                         help='How much exposure is added (default 0.50), the closer to zero the brighter the image')
-    parser.add_argument('--weight', '-w', type=int, default=15,
+    parser.add_argument('--contrast', '-con', type=int, default=15,
                         help='How much individual pixels are weighted, default 15')
     parser.add_argument('--color', '-c', type=str, default='b',
                         help='Color the characters w (white) or b (black)')
     args, _ = parser.parse_known_args()
 
-    convert_image(args.file, palate=args.palate, w=args.dimension, weight=args.weight, exposure=args.exposure, color=args.color)
+    convert_image(args.input_path, args.output_path, palate=args.palate, w=args.width, weight=args.contrast, exposure=args.exposure, color=args.color)
