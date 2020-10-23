@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw, ImageFont
 import argparse
 
 
-# USE: Run this file in terminal with the arguments found in the parser in main
+# USE: Run this file in terminal with the arguments found in the parser below
 #  INPUT -> Image filepath, Output filepath, Ascii character palate, Output width in characters, Exposure, Contrast, Color (Black/White)
 # OUTPUT -> txt file
 
