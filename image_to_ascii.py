@@ -2,8 +2,6 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import argparse
 
-# BEST MODEL
-
 
 def char_brightness(pix_val, weight):
     brightness_arr = []
@@ -51,6 +49,7 @@ def get_neighbors(arr,x,y,weight=4):
     nb += weight*[arr[x, y]]
     return(nb)
 
+
 def load_image(path, w=100):
     image = Image.open(path)
     width, height = image.size
@@ -84,8 +83,6 @@ def convert_image(path, palate, w=100, weight=4, exposure=0.5, color='b'):
 if __name__ == "__main__":
 
     char = [' ','.',"'",'-','\'',',','_',':','=','^','"','+','•','~',';','|','(',')','<','>','%','?','c','s','{','}','!','I','[',']','i','t','v','x','z','1','r','a','e','l','o','n','u','T','f','w','3','7','J','y','5','$','4','g','k','p','q','F','P','b','d','h','G','O','V','X','E','Z','8','A','U','D','H','K','W','&','@','R','B','Q','#','0','M','N']
-    math_char = ['1','2','3','4','5','6','7','8','9','0',',','.','*','%','#','!','/','<','>','~','^','&','(',')','[',']','{','}','x','y','z','ε','θ','π','Σ','∂','∫','µ','≤','≥','≈','√','±','λ',"'",' ']
-
 
     parser = argparse.ArgumentParser(description='Cleaning audio data')
     parser.add_argument('--file', '-f', type=str, default='images/obama.jpg',
@@ -102,19 +99,4 @@ if __name__ == "__main__":
                         help='Color the characters w (white) or b (black)')
     args, _ = parser.parse_known_args()
 
-
     convert_image(args.file, palate=args.palate, w=args.dimension, weight=args.weight, exposure=args.exposure, color=args.color)
-
-    # convert_image('/Users/greysonbrothers/Desktop/ /- python/art/images/obama.jpg', char, w=73, weight=4)
-
-    # convert_image('/Users/greysonbrothers/Desktop/ /- python/art/images/profile pic.jpg', char, w=100, weight=4)
-
-    # convert_image('/Users/greysonbrothers/Desktop/ /- python/art/images/dylan_press.jpg', char, w=250, weight=20, exposure=0.4)
-
-    # convert_image('/Users/greysonbrothers/Desktop/ /- python/art/images/dylan.jpg', char, w=100, weight=15)
-
-    # convert_image('/Users/greysonbrothers/Desktop/ /- python/art/images/currents.jpg', char, w=150, weight=15)
-
-    # convert_image('/Users/greysonbrothers/Desktop/ /- python/art/images/kona.jpg', char, w=100, weight=15)
-
-    # convert_image('/Users/greysonbrothers/Desktop/ /- python/art/images/me.jpg', char, w=200, weight=15)
